@@ -1,6 +1,8 @@
 var lake = [];
-var player1 = new ComputerPlayer(lake);
-var player2 = new ComputerPlayer(lake);
+var players = [
+    new ComputerPlayer(lake),
+    new ComputerPlayer(lake)
+];
 
 var intervalId;
 
@@ -15,7 +17,7 @@ function stop() {
 
 function takeTurn() {
     try {
-        player1.takeTurn();
+        players[0].takeTurn();
     } catch (e) {
         stop();
         console.log('Player 1 Wins!');
@@ -23,7 +25,7 @@ function takeTurn() {
         return;
     }
     try {
-        player2.takeTurn();
+        players[1].takeTurn();
     } catch (e) {
         stop();
         console.log('Player 2 Wins!');
@@ -38,7 +40,7 @@ function debug() {
     for (var i = 0; i < lake.length; ++i) {
         lakeSize += lake[i].length;
     }
-    if (lakeSize + player1.debugNumCards() + player2.debugNumCards() !== 2 * 56) {
+    if (lakeSize + players[0].debugNumCards() + players[1].debugNumCards() !== 2 * 56) {
         throw new Error('Invalid number of cards in play');
     }
 
@@ -48,6 +50,6 @@ function debug() {
         var pile = lake[i];
         console.log(pile[pile.length - 1]);
     }
-    player1.debug();
-    player2.debug();
+    players[0].debug();
+    players[1].debug();
 }
